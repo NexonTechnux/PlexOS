@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PlexOS — Documentation</title>
+<meta name="description" content="PlexOS documentation: shell commands, available apps, shortcuts and honest notes about daily usability.">
+<link rel="icon" href="https://raw.githubusercontent.com/NexonTechnux/PlexOS/main/logo.png">
+<link rel="stylesheet" href="plexos.css">
+</head>
+<body>
+
+<div class="aurora"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<nav class="nav">
+  <a class="brand" href="index.html">
+    <img src="https://raw.githubusercontent.com/NexonTechnux/PlexOS/main/logo.png" alt="PlexOS logo">
+    PlexOS
+  </a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="index.html#download">Download</a>
+    <a href="https://github.com/NexonTechnux/PlexOS" class="btn btn-grad">GitHub</a>
+  </div>
+</nav>
+
+<div class="docs">
+
+  <h1 class="s-title" style="font-size:2.4rem">Documentation</h1>
+  <p>Everything you can do inside PlexOS today: the shell, the apps, the shortcuts — and an honest look at daily usability.</p>
+
+  <h2>Getting started</h2>
+  <p>Boot the <span class="kbd">plexos.iso</span> on QEMU and you land straight on the desktop. The <b>Start menu</b> (top-left icon, or <span class="kbd">F10</span>) lists all six apps. The terminal — <b>PlexTerm</b> — opens a real shell where <span class="kbd">help</span> shows the command overview.</p>
+  <div class="note">No installation, no login: PlexOS boots to a working desktop in a couple of seconds. The system keeps files in a memory partition (<span class="kbd">/ram</span>) plus any ATA disk you attach (<span class="kbd">/dev/hda</span>).</div>
+
+  <h2>Shell commands</h2>
+  <p>Everything below is built into <span class="kbd">fs/shell.c</span>. With a few exceptions every command also has a short form of the same name (e.g. <span class="kbd">dir</span>, <span class="kbd">cls</span>, <span class="kbd">type</span>, <span class="kbd">quit</span>).</p>
+
+  <div class="grp">📁 Files &amp; navigation</div>
+  <table class="tbl">
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td><span class="c">ls</span> / <span class="c">dir</span></td><td>List directory contents with sizes</td></tr>
+    <tr><td><span class="c">cd</span></td><td>Change directory (<span class="c">cd</span> alone goes to <span class="c">/</span>)</td></tr>
+    <tr><td><span class="c">pwd</span></td><td>Print current path</td></tr>
+    <tr><td><span class="c">mkdir</span></td><td>Create a folder</td></tr>
+    <tr><td><span class="c">touch</span></td><td>Create an empty file</td></tr>
+    <tr><td><span class="c">cat</span> / <span class="c">type</span></td><td>Print a file to the terminal</td></tr>
+    <tr><td><span class="c">echo</span></td><td>Print text</td></tr>
+    <tr><td><span class="c">write</span> <i>file text…</i></td><td>Overwrite a file with a string</td></tr>
+    <tr><td><span class="c">rm</span></td><td>Remove a file or empty folder</td></tr>
+    <tr><td><span class="c">cp</span> <i>src dst</i></td><td>Copy a file</td></tr>
+    <tr><td><span class="c">mv</span> <i>src dst</i></td><td>Move a file or empty folder</td></tr>
+    <tr><td><span class="c">tree</span> [<i>path</i>]</td><td>Draw the folder tree recursively</td></tr>
+    <tr><td><span class="c">find</span> [<i>path</i>]<i> name</i></td><td>Search by name (substring)</td></tr>
+  </table>
+
+  <div class="grp">🔍 Text tools</div>
+  <table class="tbl">
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td><span class="c">grep</span> <i>pat file</i></td><td>Print lines containing a pattern</td></tr>
+    <tr><td><span class="c">head</span>/<span class="c">tail</span> [-N] <i>file</i></td><td>First / last N lines (default 10)</td></tr>
+    <tr><td><span class="c">wc</span> <i>file</i></td><td>Lines, words and bytes</td></tr>
+    <tr><td><span class="c">stat</span> <i>path</i></td><td>File vs folder info</td></tr>
+    <tr><td><span class="c">du</span> [<i>path</i>]</td><td>Total bytes in a tree</td></tr>
+    <tr><td><span class="c">df</span></td><td>Filesystem usage</td></tr>
+    <tr><td><span class="c">free</span></td><td>RAM available / heap used</td></tr>
+  </table>
+
+  <div class="grp">🖥️ System info</div>
+  <table class="tbl">
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td><span class="c">sysinfo</span></td><td>Full system report (CPU, GPU, RAM, video, ATA, net, PCI, uptime, clock)</td></tr>
+    <tr><td><span class="c">meminfo</span></td><td>Memory details</td></tr>
+    <tr><td><span class="c">cpuinfo</span> / <span class="c">lscpu</span></td><td>CPU brand, features, cache, i3-1115G4 profile</td></tr>
+    <tr><td><span class="c">gpu</span></td><td>GPU + video mode info</td></tr>
+    <tr><td><span class="c">vinfo</span></td><td>Video/framebuffer details (dbl-buf, vsync, PAT-WC)</td></tr>
+    <tr><td><span class="c">pci</span></td><td>List PCI devices</td></tr>
+    <tr><td><span class="c">uname</span>/<span class="c">arch</span></td><td>OS / architecture string</td></tr>
+    <tr><td><span class="c">ver</span>/<span class="c">version</span></td><td>PlexOS version</td></tr>
+    <tr><td><span class="c">uptime</span></td><td>Seconds since boot</td></tr>
+    <tr><td><span class="c">ps</span></td><td>Running processes (GUI is cooperative)</td></tr>
+    <tr><td><span class="c">whoami</span>/<span class="c">hostname</span></td><td><span class="c">user@plexos</span> / <span class="c">plexos</span></td></tr>
+  </table>
+
+  <div class="grp">🌐 Networking (Intel e1000)</div>
+  <table class="tbl">
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td><span class="c">netinfo</span></td><td>Adapter, MAC, link, IP, TX/RX counters</td></tr>
+    <tr><td><span class="c">netstat</span></td><td>Same, shorthand</td></tr>
+    <tr><td><span class="c">netsend</span></td><td>Send a test frame over the wire</td></tr>
+    <tr><td><span class="c">netup</span> / <span class="c">netdown</span></td><td>Enable / disable the NIC</td></tr>
+  </table>
+
+  <div class="grp">🧰 Shell &amp; fun</div>
+  <table class="tbl">
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td><span class="c">help</span> [<i>cmd</i>]</td><td>General guide or help for a single command</td></tr>
+    <tr><td><span class="c">clear</span>/<span class="c">cls</span></td><td>Clear the terminal</td></tr>
+    <tr><td><span class="c">history</span></td><td>Show typed commands</td></tr>
+    <tr><td><span class="c">dmesg</span></td><td>Kernel ring buffer</td></tr>
+    <tr><td><span class="c">cal</span> [<i>month year</i>]</td><td>Calendar of the month</td></tr>
+    <tr><td><span class="c">fortune</span></td><td>A bit of NexonTech wisdom</td></tr>
+    <tr><td><span class="c">sleep</span> <i>s</i></td><td>Pause 0–10 s (blocks the GUI — use sparingly)</td></tr>
+    <tr><td><span class="c">theme</span> <i>0/1/2</i></td><td>Dark / light / blue desktop theme</td></tr>
+    <tr><td><span class="c">apps</span></td><td>List the six built-in apps</td></tr>
+    <tr><td><span class="c">open</span> <i>app</i></td><td>Launch an app from the shell. Aliases: <span class="c">term|files|calc|browser|edit|settings</span></td></tr>
+    <tr><td><span class="c">plexfetch</span></td><td>The flagship system page (also <span class="c">neofetch</span>, <span class="c">about</span>)</td></tr>
+    <tr><td><span class="c">exit</span>/<span class="c">quit</span></td><td>Close the terminal app</td></tr>
+  </table>
+
+  <div class="grp">⚡ Power</div>
+  <table class="tbl">
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td><span class="c">shutdown</span>/<span class="c">poweroff</span>/<span class="c">halt</span></td><td>Power off (APM)</td></tr>
+    <tr><td><span class="c">reboot</span></td><td>Reboot</td></tr>
+    <tr><td><span class="c">kill</span></td><td>Friendly reminder: close windows with ✕ / taskbar</td></tr>
+  </table>
+
+  <h2>Keyboard &amp; mouse</h2>
+  <dl class="def">
+    <dt><span class="kbd">F10</span></dt><dd>Open / close the Start menu from anywhere</dd>
+    <dt><span class="kbd">1</span>…<span class="kbd">6</span></dt><dd>With the Start menu open: launch the 1st…6th app</dd>
+    <dt><span class="kbd">↑</span><span class="kbd">↓</span><span class="kbd">←</span><span class="kbd">→</span></dt><dd>Navigation in apps (editor cursor, menus)</dd>
+    <dt><span class="kbd">Home</span>/<span class="kbd">End</span></dt><dd>Editor line start / end</dd>
+    <dt>Mouse drag on title bar</dt><dd>Move a window</dd>
+    <dt>✕ button</dt><dd>Close a window</dd>
+    <dt>Taskbar buttons</dt><dd>Restore / iconify windows</dd>
+  </dl>
+
+  <h2>The six apps</h2>
+  <table class="tbl">
+    <tr><th>App</th><th>Launch</th><th>What it does</th></tr>
+    <tr><td>🗔 <b>PlexTerm</b></td><td><span class="c">open term</span></td><td>ANSI shell with the full command set above, scrolling output, history</td></tr>
+    <tr><td>📂 <b>PlexFiles</b></td><td><span class="c">open files</span></td><td>Explore folders, open files and folders from the desktop</td></tr>
+    <tr><td>🧮 <b>PlexCalc</b></td><td><span class="c">open calc</span></td><td>Calculator keypad + real expression parser (try <span class="c">calc 2*(3+4)^2</span> in the shell)</td></tr>
+    <tr><td>🌐 <b>PlexBrowse</b></td><td><span class="c">open browser</span></td><td>Offline PlexNet pages with an address bar: <span class="c">plex://home</span>, <span class="c">plex://apps</span>, <span class="c">plex://guida</span>, <span class="c">plex://qemu</span>, <span class="c">plex://about</span></td></tr>
+    <tr><td>📝 <b>PlexEdit</b></td><td><span class="c">open edit</span></td><td>Full-screen editor, save/load to a path (default <span class="c">/docs/nota.txt</span>)</td></tr>
+    <tr><td>⚙️ <b>Settings</b></td><td><span class="c">open settings</span></td><td>Tabs: System, Internet (enable/disable NIC), Theme (dark/light/blue)</td></tr>
+  </table>
+  <p style="margin-top:10px">From the shell, <span class="c">open</span> also accepts the long names <span class="c">terminal</span>, <span class="c">file(s)/manager</span>, <span class="c">calcolatrice</span>, <span class="c">web</span>, <span class="c">editor</span>, <span class="c">sys/sysmon/impostazioni</span>.</p>
+
+  <h2>Usability &amp; honest expectations</h2>
+  <p>This is a from-scratch hobby kernel, so a few things are consciously simple. Here is the score sheet, straight from the developers:</p>
+  <div class="bars">
+    <div class="bar"><span class="lab">Boot to desktop (QEMU)</span><span class="tr"><span class="fl" style="width:92%"></span></span><span class="pct">9/10</span></div>
+    <div class="bar"><span class="lab">Files &amp; folders</span><span class="tr"><span class="fl" style="width:78%"></span></span><span class="pct">8/10</span></div>
+    <div class="bar"><span class="lab">Text editing</span><span class="tr"><span class="fl" style="width:72%"></span></span><span class="pct">7/10</span></div>
+    <div class="bar"><span class="lab">Calculator</span><span class="tr"><span class="fl" style="width:88%"></span></span><span class="pct">9/10</span></div>
+    <div class="bar"><span class="lab">Networking</span><span class="tr"><span class="fl" style="width:34%"></span></span><span class="pct">3/10</span></div>
+    <div class="bar"><span class="lab">Hardware compatibility</span><span class="tr"><span class="fl" style="width:22%"></span></span><span class="pct">2/10</span></div>
+  </div>
+  <div class="note">
+    <b>What works daily:</b> boot in seconds, GUI with windows and Start menu, file management, calculator, editor, shell with history, themes, power off/reboot.<br>
+    <b>What is still young:</b> networking is limited (e1000 link + test TX, no TCP/IP stack yet), no USB driver (PS/2 input only), no user management, browser is offline-only, and heavy <span class="kbd">sleep</span> pauses the whole GUI because scheduling is cooperative.<br>
+    <b>Real hardware:</b> on the Intel i3-1115G4 the kernel is alive but the display path is still being worked on — which is why diagnostics blink codes exist.
+  </div>
+
+  <p style="margin-top:36px"><a href="index.html#download" class="btn btn-grad">⬇ Download PlexOS</a> &nbsp;<a href="https://github.com/NexonTechnux/PlexOS" class="btn btn-ghost">Source on GitHub</a></p>
+
+  <footer style="border-top:none;padding:30px 0 0">
+    <div>© 2026 NexonTech · MIT license · made with 💙 and a lot of assembly</div>
+  </footer>
+</div>
+
+<script src="plexos.js"></script>
+</body>
+</html>

@@ -5,60 +5,64 @@
 <h1 align="center">🖥️ PlexOS</h1>
 
 <p align="center">
-  <b>Un sistema operativo scritto da zero in C e Assembly (x86), con GUI grafica, desktop, finestre, menu Start e 6 app.</b><br/>
-  <i>Un progetto NexonTech — tutto il kernel, i driver e la GUI sono originali.</i>
+  <b>An operating system written from scratch in C and Assembly (x86), with a graphical GUI, desktop, windows, Start menu and 6 apps.</b><br/>
+  <i>A NexonTech project — the whole kernel, drivers and GUI are original.</i>
 </p>
 
 <p align="center">
-  <img src="docs/screenshot-720p.png" alt="Desktop PlexOS 720p" width="620"/>
+  <a href="https://nexontechnux.github.io/PlexOS/"><b>🌐 Visit the website</b></a> ·
+  <a href="https://github.com/NexonTechnux/PlexOS/releases"><b>⬇️ Download</b></a>
 </p>
 
-## ⚠️ Stato: QEMU-first
+<p align="center">
+  <img src="docs/screenshot-720p.png" alt="PlexOS desktop 720p" width="620"/>
+</p>
 
-> **PlexOS è stato testato e ottimizzato su QEMU, dove gira a quasi 60 FPS a 1280x720.**
-> L'avvio su hardware fisico reale è ancora in sviluppo (macchine di test: Intel Core i3-1115G4, gestione display Intel UHD — il sistema è vivo anche dove il video non è ancora visibile).
-> Perciò: **usa QEMU per provare PlexOS** e goderteli fino in fondo. 😉
+## ⚠️ Status: QEMU-first
 
-## ✨ Cosa fa
+> **PlexOS is tested and tuned on QEMU, where it runs at nearly 60 FPS at 1280x720.**
+> Booting on physical hardware is still under active development (test machines: Intel Core i3-1115G4 / Intel UHD display handling — the system is alive even where video isn't visible yet).
+> Bottom line: **use QEMU to try PlexOS** and enjoy it to the fullest. 😉
 
-- **Boot proprio da zero**: Multiboot (BIOS) + **UEFI** (Multiboot2 + GOP), GDT/IDT, PMM, paging PSE con DMA, heap.
-- **GUI grafica completa**: desktop con wallpaper, doppio buffer + vsync (zero flicker), fine mouse PS/2, finestre, menu Start con animazioni, barra delle applicazioni, multitasking round-robin.
-- **Drivers scritti a mano**: VBE framebuffer, Bochs dispi, tastiera e mouse PS/2, ATA PIO, PCI, RTC, timer PIT, **rete Intel e1000** (QEMU `-net nic,model=e1000`), rilevamento CPU (SSE, PAT, TSC), probe display Intel (Tiger Lake).
-- **File system VFS** con partizione integrata e `initrd`-like immagini disco.
-- **Shell di sistema** con **più di 70 comandi**, tra cui: `ls cd pwd cat cp mv rm mkdir touch tree find grep head tail wc du df free ps kill stat mount dmesg history cal fortune sleep date uptime uname lscpu cpuinfo meminfo pci lsusb netinfo netstat dmesg framebuffer theme sysinfo plexfetch halt reboot poweroff ...`
-- **6 app**:
-  - 🗔 **Terminale** — con emulatore ANSI e comandi.
-  - 📂 **Gestione File** — esploratore del file system.
-  - 🧮 **Calcolatrice** — con motore di calcolo delle espressioni.
-  - 🌐 **Browser** — navigatore testuale intergovernomenale.
-  - 📝 **Editor** — editor di testo a schermo intero.
-  - 📊 **SysMon** — monitor di sistema con grafica.
-- **Impostazioni** (tema chiaro/scuro/blu, internet on/off) nel menu Start.
-- **Diagnostica "cieca"** per real hardware: indicatori a pieno schermo colorati + lampeggi del CAPS LOCK (fino a 11 codici) per capire dove si ferma il boot quando il video ancora non si accende.
+## ✨ What it does
+
+- **Its own boot from zero**: Multiboot (BIOS) + **UEFI** (Multiboot2 + GOP), GDT/IDT, PMM, PSE paging with DMA, heap.
+- **Full graphical GUI**: desktop with wallpaper, double buffering + vsync (zero flicker), PS/2 mouse pointer, windows, animated Start menu, taskbar, round-robin multitasking.
+- **Hand-written drivers**: VBE framebuffer, Bochs dispi, PS/2 keyboard & mouse, ATA PIO, PCI, RTC, PIT timer, **Intel e1000 networking** (QEMU `-net nic,model=e1000`), CPU detection (SSE, PAT, TSC), Intel display probe (Tiger Lake).
+- **VFS filesystem** with built-in partition and disk images.
+- **System shell** with **70+ commands**, including: `ls cd pwd cat cp mv rm mkdir touch tree find grep head tail wc du df free ps kill stat mount dmesg history cal sleep fortune date uptime uname lscpu cpuinfo meminfo pci netinfo netstat framebuffer theme sysinfo plexfetch halt reboot poweroff ...`
+- **6 apps**:
+  - 🗔 **Terminal** — with ANSI emulator and shell.
+  - 📂 **File Manager** — filesystem explorer.
+  - 🧮 **Calculator** — with expression evaluation engine.
+  - 🌐 **Browser** — offline PlexNet pages.
+  - 📝 **Editor** — full-screen text editor with save/load.
+  - 📊 **Settings** (System / Network / Themes) — from the Start menu.
+- **"Blind" diagnostics** for real hardware: full-screen color markers + CAPS LOCK blink codes (up to 11) to locate where boot stops when video isn't up yet.
 
 ## 🔨 Build
 
-Serve (su Debian/Ubuntu):
+On Debian/Ubuntu:
 
 ```bash
 sudo apt install gcc-multilib nasm xorriso grub-pc-bin mtools qemu-system-x86
 ```
 
-Poi:
+Then:
 
 ```bash
 make
 ```
 
-Produce `plexos.iso` (~12 MB), direttamente avviabile da QEMU **e da USB** (GRUB) tramite `cp plexos.iso /dev/sdX && sync` su una chiavetta.
+Produces `plexos.iso` (~12 MB), bootable from QEMU **and from USB** (GRUB) via `cp plexos.iso /dev/sdX && sync`.
 
-## ▶️ Eseguire su QEMU
+## ▶️ Run on QEMU
 
 ```bash
 make run
 ```
 
-oppure, non-interattivo:
+or non-interactively:
 
 ```bash
 qemu-system-i386 -cdrom plexos.iso -m 256M -vga std \
@@ -66,33 +70,34 @@ qemu-system-i386 -cdrom plexos.iso -m 256M -vga std \
   -net nic,model=e1000 -net user -rtc base=localtime
 ```
 
-> Il disco `plexos_disk.img` è il file system che PlexOS monta. Senza disco la shell mostra solo una partizione di memoria (`/ram`).
+> `plexos_disk.img` is the filesystem PlexOS mounts. Without a disk the shell only shows a memory partition (`/ram`).
 
-## ⌨️ Inside la GUI
+## ⌨️ Inside the GUI
 
-- Menu Start: clic sull'icona in alto a sinistra (o `Alt+S`).
-- Finestre: drag con il titolo, chiudi con la ✕.
-- `Ctrl+Alt+P` = screenshot, `Alt+Tab` = anticipo finestra, `Alt+Q` = chiudi app.
-- Nella shell: `help` per l'elenco completo, `plexfetch` per la pagina sistema, `theme 0/1/2` per cambiare tema, `netinfo` per lo stato della rete.
+- Start menu: click the icon top-left (**or press F10** with 1-6 selecting an app).
+- Windows: drag by the title bar, close with the ✕.
+- Shell: `help` for the full list, `plexfetch` for the system page, `theme 0/1/2` to switch themes, `netinfo` for network status.
 
-## 🧠 Architettura (in breve)
+## 🧠 Architecture (in short)
 
 ```
-boot/    boot.asm (loader multiboot 32-bit)
+boot/    boot.asm (multiboot 32-bit loader)
 kernel/  gdt idt pmm paging heap timer cpu power mb2
 drivers/ serial fb keyboard mouse pci ata rtc gpu e1000 bochs intel_disp
-fs/      vfs        shell (CLI ~70 comandi)
-gui/     gui        (finestre, menu, wallpaper)
-apps/    terminal   fileman   calc   browser   editor   sysmon
-lib/     string     printf    font
+fs/      vfs   shell (CLI ~70 commands)
+gui/     gui   (windows, menu, wallpaper)
+apps/    terminal  fileman  calc  browser  editor  settings(sysmon)
+lib/     string  printf  font
 ```
 
-Screenshot UEFI 1920x1080 (GOP):
+UEFI 1920x1080 (GOP):
 
 <p align="center"><img src="docs/screenshot-1080p.png" alt="PlexOS UEFI 1080p" width="620"/></p>
 
-<p align="center"><img src="docs/screenshot-startmenu.png" alt="Menu Start" width="620"/></p>
+<p align="center"><img src="docs/screenshot-startmenu.png" alt="Start menu" width="620"/></p>
 
-## ⚖️ Licenza
+## 📜 License
 
-PlexOS è un progetto didattico/hobby di **NexonTech**. Riuso libero citando la provenienza.
+MIT — free and open source. See [LICENSE](LICENSE).
+
+PlexOS is an educational/hobby project by **NexonTech**.

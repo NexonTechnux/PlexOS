@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PlexOS — an OS built from scratch</title>
+<meta name="description" content="PlexOS: a free, open source operating system written from scratch in C and Assembly (x86) with a graphical desktop. Tested on QEMU at nearly 60 FPS.">
+<meta property="og:title" content="PlexOS — an OS built from scratch">
+<meta property="og:description" content="Kernel, drivers and GUI written from scratch. Free & open source — NexonTech.">
+<meta property="og:type" content="website">
+<link rel="icon" href="https://raw.githubusercontent.com/NexonTechnux/PlexOS/main/logo.png">
+<link rel="stylesheet" href="plexos.css">
+</head>
+<body>
+
+<div class="aurora"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+<canvas id="fx"></canvas>
+
+<nav class="nav">
+  <a class="brand" href="#">
+    <img src="https://raw.githubusercontent.com/NexonTechnux/PlexOS/main/logo.png" alt="PlexOS logo">
+    PlexOS
+  </a>
+  <div class="links">
+    <a href="#features">Features</a>
+    <a href="#apps">Apps</a>
+    <a href="#showcase">Showcase</a>
+    <a href="#download">Download</a>
+    <a href="docs.html" class="btn btn-ghost">Docs</a>
+    <a href="https://github.com/NexonTechnux/PlexOS" class="btn btn-grad">GitHub</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <img class="logo reveal" src="https://raw.githubusercontent.com/NexonTechnux/PlexOS/main/logo.png" alt="PlexOS logo">
+  <h1 class="reveal">PlexOS</h1>
+  <p class="tag reveal" id="typewrap"
+     data-texts='["an OS written from scratch in C and Assembly","default boot: QEMU, 1280x720 @ nearly 60 FPS","70+ shell commands + graphical desktop","GDT · IDT · PMM · Paging · VFS · e1000 net","a NexonTech project — free and open source"]'>
+    <span class="cursor">&nbsp;</span>
+  </p>
+  <div class="chips reveal">
+    <span class="chip">Kernel <b>32-bit</b></span>
+    <span class="chip">Multiboot <b>+ UEFI</b></span>
+    <span class="chip">GUI <b>60 FPS</b></span>
+    <span class="chip">~70 <b>commands</b></span>
+    <span class="chip">6 <b>apps</b></span>
+  </div>
+  <div class="cta reveal">
+    <a href="#download" class="btn btn-grad">⬇ Download</a>
+    <a href="docs.html" class="btn btn-ghost">Read the docs</a>
+  </div>
+  <div class="scrollhint">scroll</div>
+</header>
+
+<section id="features">
+  <h2 class="s-title reveal">A real OS, from zero</h2>
+  <p class="s-sub reveal">No borrowed kernel, no Linux underneath. PlexOS is raw code: the boot stub, the drivers, the window manager, the shell — all hand-written.</p>
+  <div class="grid g3">
+    <div class="card reveal">
+      <span class="ico">🖥️</span>
+      <h3>Own boot stack</h3>
+      <p>Multiboot for BIOS and <b>Multiboot2</b> for UEFI, GDT/IDT setup, physical memory manager, PSE paging, kernel heap.</p>
+      <div class="mono">boot.asm · kernel/</div>
+    </div>
+    <div class="card reveal">
+      <span class="ico">🎨</span>
+      <h3>No-flicker GUI</h3>
+      <p>Double-buffered rendering with vsync: desktop, resizable windows, taskbar and an animated Start menu.</p>
+      <div class="mono">gui/gui.c · drivers/fb.c</div>
+    </div>
+    <div class="card reveal">
+      <span class="ico">🧩</span>
+      <h3>Hand-written drivers</h3>
+      <p>VBE &amp; Bochs dispi video, PS/2 keyboard/mouse, ATA PIO disk, PCI, RTC clock, PIT timer — and <b>Intel e1000</b> networking.</p>
+      <div class="mono">drivers/*.c</div>
+    </div>
+    <div class="card reveal">
+      <span class="ico">🧠</span>
+      <h3>CPU aware</h3>
+      <p>Detects the real CPU: SSE, PAT write-combining, TSC timing — tuned profile for the Intel Core i3-1115G4 / UHD G4.</p>
+      <div class="mono">kernel/cpu.c</div>
+    </div>
+    <div class="card reveal">
+      <span class="ico">🗄️</span>
+      <h3>VFS + shell</h3>
+      <p>A filesystem with a memory partition and ATA disk, plus a shell with <b>70+ commands</b> and history.</p>
+      <div class="mono">fs/vfs.c · fs/shell.c</div>
+    </div>
+    <div class="card reveal">
+      <span class="ico">🕵️</span>
+      <h3>Blind diagnostics</h3>
+      <p>For real hardware: full-screen color stages and up to <b>11 CAPS&nbsp;LOCK blink codes</b> to trace the boot.</p>
+      <div class="mono">kernel/mb2.c · led_blink()</div>
+    </div>
+  </div>
+</section>
+
+<section id="term" style="padding-top:20px">
+  <h2 class="s-title reveal">Feels like home</h2>
+  <p class="s-sub reveal">A real shell, right there on the desktop.</p>
+  <div class="demowrap reveal">
+    <div class="term" data-termlines='[
+      {"html":"plexos@qemu:~$ <b style=&quot;color:#4fd1ff&quot;>plexfetch</b>"},
+      {"html":"   ____  _           ___  ____","delay":120},
+      {"html":"  |  _ \\ | | _____  / _ \\/ ___|","delay":120},
+      {"html":"  | |_) | |/ _ \\ \\/ / \\ \\___ \\","delay":120},
+      {"html":"  |  __/| |  __/&gt;  &lt; _  |___) |","delay":120},
+      {"html":"  |_|   |_|\\___/_/\\_(_)/____/  by NexonTech","delay":120},
+      {"html":"  -------------------------------------","delay":120},
+      {"html":"<span class=&quot;ok&quot;>OS:</span> PlexOS 1.0.0   Kernel: 32-bit Multiboot","delay":120},
+      {"html":"<span class=&quot;ok&quot;>Resolution:</span> 1280x720x32 60fps   DE: PlexDE (dbl-buf)","delay":120},
+      {"html":"<span class=&quot;ok&quot;>CPU:</span> Intel Core i3-1115G4 @ 3000MHz","delay":120},
+      {"html":"<span class=&quot;ok&quot;>Net:</span> e1000 link-up  IP 10.0.2.15","delay":120}
+    ]'></div>
+  </div>
+</section>
+
+<section id="apps">
+  <h2 class="s-title reveal">Six apps, built in</h2>
+  <p class="s-sub reveal">Launch them from the Start menu — click the icon top-left, or press <span class="kbd">F10</span> then <span class="kbd">1</span>–<span class="kbd">6</span>.</p>
+  <div class="grid g2">
+    <div class="card app reveal"><span class="ico">🗔</span><div><span class="tag">Terminal</span><h3>PlexTerm</h3><p>The system shell with ANSI output, history and 70+ commands.</p></div></div>
+    <div class="card app reveal"><span class="ico">📂</span><div><span class="tag">Files</span><h3>PlexFiles</h3><p>Browse, create and delete files and folders in the VFS.</p></div></div>
+    <div class="card app reveal"><span class="ico">🧮</span><div><span class="tag">Calculator</span><h3>PlexCalc</h3><p>Expression engine: <span class="mono">2*(3+4)^2</span> — click buttons or type.</p></div></div>
+    <div class="card app reveal"><span class="ico">🌐</span><div><span class="tag">Browser</span><h3>PlexBrowse</h3><p>Offline PlexNet pages: home, apps, command guide, about.</p></div></div>
+    <div class="card app reveal"><span class="ico">📝</span><div><span class="tag">Editor</span><h3>PlexEdit</h3><p>Full-screen text editor that saves straight into the filesystem.</p></div></div>
+    <div class="card app reveal"><span class="ico">⚙️</span><div><span class="tag">Settings</span><h3>System / Net / Theme</h3><p>Tabs for system info, network on/off and light/dark/blue themes.</p></div></div>
+  </div>
+</section>
+
+<section id="showcase">
+  <h2 class="s-title reveal">Screenshots</h2>
+  <p class="s-sub reveal">Rendered by PlexOS itself.</p>
+  <div class="shots">
+    <div class="shot reveal"><img src="screenshot-720p.png" alt="PlexOS desktop 720p"><div class="cap">Desktop — QEMU 1280×720, double-buffered, ~60 FPS</div></div>
+    <div class="shot reveal"><img src="screenshot-startmenu.png" alt="PlexOS Start menu"><div class="cap">Start menu, animated</div></div>
+    <div class="shot reveal"><img src="screenshot-1080p.png" alt="PlexOS desktop 1080p via UEFI"><div class="cap">UEFI GOP 1920×1080 via OVMF</div></div>
+  </div>
+</section>
+
+<section id="download">
+  <h2 class="s-title reveal">Download</h2>
+  <p class="s-sub reveal">Latest release, pulled live from GitHub.</p>
+  <div id="dload" class="dload"></div>
+  <div class="note reveal" style="border-left-color:var(--acc2);margin-top:26px">
+    <b>QEMU-first.</b> PlexOS is tested and tuned on QEMU (nearly 60 FPS at 1280×720). Physical-hardware boot — e.g. the Intel i3-1115G4 / UHD — is still in development. Use it with the command below:
+  </div>
+  <div class="term reveal">
+    <div class="body" style="min-height:auto;padding:18px"><span class="p">$</span> qemu-system-i386 -cdrom plexos.iso -m 256M -vga std \
+ &nbsp;&nbsp;-drive id=disk0,if=ide,format=raw,file=plexos_disk.img \
+ &nbsp;&nbsp;-net nic,model=e1000 -net user -rtc base=localtime<span class="cursor">&nbsp;</span></div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 NexonTech · PlexOS is <b>free and open source</b> (MIT)</div>
+  <div class="fb"><a href="https://github.com/NexonTechnux/PlexOS">GitHub</a> · <a href="https://github.com/NexonTechnux/PlexOS/releases">Releases</a> · <a href="docs.html">Documentation</a></div>
+</footer>
+
+<script src="plexos.js"></script>
+</body>
+</html>
