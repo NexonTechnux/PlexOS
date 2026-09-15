@@ -1,0 +1,9 @@
+# build artifacts
+*.o
+*.bin
+*.iso
+*.log
+iso/boot/kernel.bin
+
+# utility
+docs-logo-src.png
