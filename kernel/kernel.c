@@ -45,6 +45,7 @@ void kmain(u32 magic, multiboot_info_t* mbi){
 
     if(fb_init(mbi)!=0){
         kprintf("[BOOT] continuo in VGA-text (no GUI accel)\n");
+        fb_dev_notice(); /* schermata rossa: display assente = STILL IN DEVELOPMENT */
     }
     dbg_stage(0xFFFF00); /* GIALLO: cpu/pci/fb ok */
     led_blink(5); /* 5: video ok */

@@ -14,6 +14,8 @@
   <a href="https://github.com/NexonTechnux/PlexOS/releases"><b>⬇️ Download</b></a>
 </p>
 
+> **⚠️ STILL IN DEVELOPMENT** — When the display can't be initialized (e.g. forced 1080p on some hardware), PlexOS keeps running and shows a RED **"STILL IN DEVELOPMENT"** notice instead of a silent black screen.
+
 <p align="center">
   <img src="docs/screenshot-720p.png" alt="PlexOS desktop 720p" width="620"/>
 </p>

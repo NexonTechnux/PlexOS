@@ -256,6 +256,27 @@ dl.def dd{color:var(--mut);margin:0;font-size:.92rem}
 .bar .fl{height:100%;border-radius:99px;background:var(--grad);animation:grow 1.4s cubic-bezier(.2,.7,.3,1) both;transform-origin:left}
 .bar .pct{width:44px;color:var(--acc)}
 @keyframes grow{from{width:0}}
+
+/* badge rosso "STILL IN DEVELOPMENT" (display reale / 1080p) */
+.devbadge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  font-size:.72rem;padding:7px 14px;border-radius:999px;
+  color:#ffd7d7;background:linear-gradient(90deg,#5a0f0f,#7a1212);
+  border:1px solid #ff5b5b;box-shadow:0 0 18px rgba(255,60,60,.35);
+  animation:devpulse 2.2s ease-in-out infinite;
+}
+@keyframes devpulse{
+  0%,100%{box-shadow:0 0 12px rgba(255,60,60,.25);opacity:.95}
+  50%{box-shadow:0 0 26px rgba(255,60,60,.7);opacity:1}
+}
+.devbar{
+  display:flex;align-items:center;gap:12px;margin:18px 0;flex-wrap:wrap;
+  border:1px solid rgba(255,91,91,.4);border-radius:14px;padding:14px 18px;
+  background:rgba(90,15,15,.22);
+}
+.devbar b{color:#ff8d8d;text-transform:uppercase;letter-spacing:1px}
+.devbar span{color:#ffd7d7;font-size:.9rem}
 @media (max-width:640px){
   .nav .links a:not(.btn){display:none}
   dl.def{grid-template-columns:1fr}

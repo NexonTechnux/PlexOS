@@ -48,6 +48,10 @@
     <span class="chip">~70 <b>commands</b></span>
     <span class="chip">6 <b>apps</b></span>
   </div>
+  <div class="devbar reveal" style="margin-top:20px">
+    <span class="devbadge">⚠ Still in development</span>
+    <span><b>Display on real hardware &amp; forced 1080p</b> are still in development — the OS shows a red notice and keeps running blind.</span>
+  </div>
   <div class="cta reveal">
     <a href="#download" class="btn btn-grad">⬇ Download</a>
     <a href="docs.html" class="btn btn-ghost">Read the docs</a>
@@ -137,7 +141,7 @@
   <div class="shots">
     <div class="shot reveal"><img src="screenshot-720p.png" alt="PlexOS desktop 720p"><div class="cap">Desktop — QEMU 1280×720, double-buffered, ~60 FPS</div></div>
     <div class="shot reveal"><img src="screenshot-startmenu.png" alt="PlexOS Start menu"><div class="cap">Start menu, animated</div></div>
-    <div class="shot reveal"><img src="screenshot-1080p.png" alt="PlexOS desktop 1080p via UEFI"><div class="cap">UEFI GOP 1920×1080 via OVMF</div></div>
+    <div class="shot reveal"><img src="screenshot-1080p.png" alt="PlexOS desktop 1080p via UEFI"><div class="cap">UEFI GOP 1920×1080 via OVMF · <span style="color:#ff6b6b;font-weight:700">display: STILL IN DEVELOPMENT</span></div></div>
   </div>
 </section>
 
@@ -146,7 +150,7 @@
   <p class="s-sub reveal">Latest release, pulled live from GitHub.</p>
   <div id="dload" class="dload"></div>
   <div class="note reveal" style="border-left-color:var(--acc2);margin-top:26px">
-    <b>QEMU-first.</b> PlexOS is tested and tuned on QEMU (nearly 60 FPS at 1280×720). Physical-hardware boot — e.g. the Intel i3-1115G4 / UHD — is still in development. Use it with the command below:
+    <b>QEMU-first.</b> PlexOS is tested and tuned on QEMU (nearly 60 FPS at 1280×720). When the display can't be initialized (e.g. forced 1080p on some hardware), PlexOS shows a red <b>STILL IN DEVELOPMENT</b> notice instead of a silent black screen. Use it with the command below:
   </div>
   <div class="term reveal">
     <div class="body" style="min-height:auto;padding:18px"><span class="p">$</span> qemu-system-i386 -cdrom plexos.iso -m 256M -vga std \

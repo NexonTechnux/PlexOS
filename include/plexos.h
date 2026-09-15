@@ -181,6 +181,7 @@ void fb_present(void);      /* copia backbuffer -> video (vsync) */
 void fb_vsync_wait(void);   /* attesa retrace verticale QEMU/VGA */
 int  fb_double_buffered(void);
 const char* fb_source(void); /* "GRUB-VBE", "GRUB-GOP", "BOCHS", "VGA-text" */
+void fb_dev_notice(void);    /* schermata rossa "STILL IN DEVELOPMENT" se display assente */
 
 /* GPU QEMU Bochs dispi (modo diretto, no GRUB) */
 int bochs_present(void);

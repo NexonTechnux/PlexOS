@@ -151,6 +151,27 @@ fb_ok:
 
 const char* fb_source(void){ return fb_src; }
 
+/* Schermata di fallback quando il display NON e' pronto:
+   messaggio ROSSO su console VGA-text (BIOS) + serial.
+   Spiega che il kernel e' vivo e che il video e' ancora in sviluppo.
+   (Su UEFI cieco la console ottica non esiste: valgono i blink CapsLock 1-11.) */
+static void vga_putstr(int row,int col,const char* s,int attr){
+    u16* p=&vga_text[row*80+col];
+    int i=0; while(s[i]&&col+i<80){ p[i]=(u16)((attr<<8)|(u8)s[i]); i++; }
+}
+void fb_dev_notice(void){
+    serial_write("\n[FB/DISPLAY] NON INIZIALIZZATO\n[FB/DISPLAY] --> STILL IN DEVELOPMENT\n");
+    for(int i=0;i<80*25;i++) vga_text[i]=0x0020;
+    vga_putstr( 6,12,"PlexOS  -  display NOT initialized",0x04);
+    vga_putstr( 9,10,"The kernel IS ALIVE (blind boot running).",0x0C);
+    vga_putstr(10,10,"Video path on real hardware: develop only.",0x0C);
+    vga_putstr(12,10,"More info: serial log + CAPS-LOCK blinks 1-11.",0x0C);
+    vga_putstr(15,12,">>>  STILL IN DEVELOPMENT  <<<",0x0F);
+    for(int c=0;c<80;c++) vga_text[17*80+c]=0x04C4;   /* riga rossa sotto */
+    vga_putstr(19,10,"Press nothing - this box keeps running.",0x08);
+    vga_putstr(20,10,"Try the QEMU release for the full desktop.",0x08);
+}
+
 u32 fb_width(void){ return ready?fb_w:80; }
 u32 fb_height(void){ return ready?fb_h:25; }
 u32 fb_pitch(void){ return fb_p; }

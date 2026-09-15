@@ -152,10 +152,14 @@
     <div class="bar"><span class="lab">Networking</span><span class="tr"><span class="fl" style="width:34%"></span></span><span class="pct">3/10</span></div>
     <div class="bar"><span class="lab">Hardware compatibility</span><span class="tr"><span class="fl" style="width:22%"></span></span><span class="pct">2/10</span></div>
   </div>
+  <div class="devbar reveal">
+    <span class="devbadge">⚠ Still in development</span>
+    <span><b>Display on real hardware / forced 1080p:</b> the kernel keeps running but shows a red "STILL IN DEVELOPMENT" notice when the display can't be initialized.</span>
+  </div>
   <div class="note">
     <b>What works daily:</b> boot in seconds, GUI with windows and Start menu, file management, calculator, editor, shell with history, themes, power off/reboot.<br>
     <b>What is still young:</b> networking is limited (e1000 link + test TX, no TCP/IP stack yet), no USB driver (PS/2 input only), no user management, browser is offline-only, and heavy <span class="kbd">sleep</span> pauses the whole GUI because scheduling is cooperative.<br>
-    <b>Real hardware:</b> on the Intel i3-1115G4 the kernel is alive but the display path is still being worked on — which is why diagnostics blink codes exist.
+    <b>Real hardware:</b> on the Intel i3-1115G4 the kernel is alive but the display path is still being worked on — when it can't init, a red <b>STILL IN DEVELOPMENT</b> screen appears instead of silent black, and CAPS-LOCK blink codes 1-11 trace the boot.
   </div>
 
   <p style="margin-top:36px"><a href="index.html#download" class="btn btn-grad">⬇ Download PlexOS</a> &nbsp;<a href="https://github.com/NexonTechnux/PlexOS" class="btn btn-ghost">Source on GitHub</a></p>
